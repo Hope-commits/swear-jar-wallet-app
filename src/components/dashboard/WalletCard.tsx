@@ -12,7 +12,7 @@ const WalletCard = ({ balance }: WalletCardProps) => {
         <div>
           <h2 className="text-sm font-medium text-gray-600 mb-2">Total Balance</h2>
           <div className="text-4xl font-bold text-gray-900">
-            ${balance.toLocaleString()}
+            R{balance.toLocaleString()}
             <span className="text-lg text-gray-500">.24</span>
           </div>
         </div>
@@ -30,7 +30,7 @@ const WalletCard = ({ balance }: WalletCardProps) => {
           </div>
           <div>
             <div className="text-sm text-gray-500">Saved</div>
-            <div className="font-semibold text-gray-900">$2,450</div>
+            <div className="font-semibold text-gray-900">R2,450</div>
           </div>
         </div>
         
@@ -40,7 +40,7 @@ const WalletCard = ({ balance }: WalletCardProps) => {
           </div>
           <div>
             <div className="text-sm text-gray-500">Fines</div>
-            <div className="font-semibold text-gray-900">$185</div>
+            <div className="font-semibold text-gray-900">R185</div>
           </div>
         </div>
       </div>
@@ -48,9 +48,9 @@ const WalletCard = ({ balance }: WalletCardProps) => {
       <div className="mt-6">
         <h3 className="text-sm font-medium text-gray-600 mb-3">My Cards</h3>
         <div className="flex space-x-4">
-          {/* Card 1 */}
-          <div className="flex-1 h-32 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 p-4 text-white relative overflow-hidden">
-            <div className="absolute top-2 right-2 text-xs opacity-80">VISA</div>
+          {/* FNB Card */}
+          <div className="flex-1 h-32 rounded-2xl bg-gradient-to-br from-green-600 to-green-800 p-4 text-white relative overflow-hidden">
+            <div className="absolute top-2 right-2 text-xs opacity-80">FNB</div>
             <div className="absolute bottom-4 left-4">
               <div className="text-xs opacity-80">•••• •••• •••• 4455</div>
             </div>

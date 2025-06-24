@@ -24,7 +24,7 @@ const ExpenseChart = () => {
           <p className="text-sm text-gray-600">Daily count this month</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-gray-900">$2046.44</div>
+          <div className="text-2xl font-bold text-gray-900">R2,046.44</div>
           <div className="text-sm text-gray-500">Total fines</div>
         </div>
       </div>

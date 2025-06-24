@@ -5,6 +5,12 @@ import WalletCard from "./WalletCard";
 import TransactionsList from "./TransactionsList";
 import ExpenseChart from "./ExpenseChart";
 import CreditScore from "./CreditScore";
+import Analytics from "./Analytics";
+import Transactions from "./Transactions";
+import Payments from "./Payments";
+import Goals from "./Goals";
+import Settings from "./Settings";
+import HelpCenter from "./HelpCenter";
 import { Button } from "@/components/ui/button";
 
 interface DashboardProps {
@@ -12,6 +18,7 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ onLogout }: DashboardProps) => {
+  const [currentView, setCurrentView] = useState<'dashboard' | 'analytics' | 'transactions' | 'payments' | 'goals' | 'settings' | 'help'>('dashboard');
   const [totalBalance] = useState(31180.24);
   const [recentTransactions] = useState([
     { id: 1, name: "Apple Inc", date: "14 Dec 2023", amount: -45.00, type: "Fine for saying 'damn'" },
@@ -26,40 +33,61 @@ const Dashboard = ({ onLogout }: DashboardProps) => {
     // Here you would implement the actual word detection and charging logic
   };
 
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'analytics':
+        return <Analytics />;
+      case 'transactions':
+        return <Transactions />;
+      case 'payments':
+        return <Payments />;
+      case 'goals':
+        return <Goals />;
+      case 'settings':
+        return <Settings />;
+      case 'help':
+        return <HelpCenter />;
+      default:
+        return (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Column */}
+            <div className="lg:col-span-2 space-y-6">
+              <WalletCard balance={totalBalance} />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <ExpenseChart />
+                <CreditScore score={1620} />
+              </div>
+              
+              {/* Test Button for Word Detection */}
+              <div className="backdrop-blur-sm bg-white/40 rounded-3xl p-6 border border-white/20 shadow-xl">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">Test Bad Word Detection</h3>
+                <Button 
+                  onClick={handleWordDetected}
+                  className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white"
+                >
+                  Simulate Bad Word (Test Fine)
+                </Button>
+              </div>
+            </div>
+            
+            {/* Right Column */}
+            <div className="space-y-6">
+              <TransactionsList transactions={recentTransactions} />
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-100/10 via-purple-100/10 to-pink-100/10" />
       
-      <Header onLogout={onLogout} />
+      <Header onLogout={onLogout} currentView={currentView} setCurrentView={setCurrentView} />
       
       <div className="container mx-auto px-6 py-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column */}
-          <div className="lg:col-span-2 space-y-6">
-            <WalletCard balance={totalBalance} />
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ExpenseChart />
-              <CreditScore score={1620} />
-            </div>
-            
-            {/* Test Button for Word Detection */}
-            <div className="backdrop-blur-sm bg-white/40 rounded-3xl p-6 border border-white/20 shadow-xl">
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">Test Bad Word Detection</h3>
-              <Button 
-                onClick={handleWordDetected}
-                className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white"
-              >
-                Simulate Bad Word (Test Fine)
-              </Button>
-            </div>
-          </div>
-          
-          {/* Right Column */}
-          <div className="space-y-6">
-            <TransactionsList transactions={recentTransactions} />
-          </div>
-        </div>
+        {renderCurrentView()}
       </div>
     </div>
   );

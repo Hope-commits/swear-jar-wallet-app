@@ -5,9 +5,21 @@ import { Search, Circle } from "lucide-react";
 
 interface HeaderProps {
   onLogout: () => void;
+  currentView: string;
+  setCurrentView: (view: 'dashboard' | 'analytics' | 'transactions' | 'payments' | 'goals' | 'settings' | 'help') => void;
 }
 
-const Header = ({ onLogout }: HeaderProps) => {
+const Header = ({ onLogout, currentView, setCurrentView }: HeaderProps) => {
+  const navItems = [
+    { key: 'dashboard', label: 'Dashboard' },
+    { key: 'analytics', label: 'Analytics' },
+    { key: 'transactions', label: 'Transactions' },
+    { key: 'payments', label: 'Payments' },
+    { key: 'goals', label: 'Goals' },
+    { key: 'settings', label: 'Settings' },
+    { key: 'help', label: 'Help' }
+  ];
+
   return (
     <header className="backdrop-blur-sm bg-white/40 border-b border-white/20 relative z-20">
       <div className="container mx-auto px-6 py-4">
@@ -21,10 +33,19 @@ const Header = ({ onLogout }: HeaderProps) => {
             </div>
             
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Dashboard</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Analytics</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Expenses</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Spending</a>
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => setCurrentView(item.key as any)}
+                  className={`font-medium transition-colors ${
+                    currentView === item.key
+                      ? 'text-blue-600'
+                      : 'text-gray-500 hover:text-blue-600'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
             </nav>
           </div>
           

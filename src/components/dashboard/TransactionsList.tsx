@@ -44,7 +44,7 @@ const TransactionsList = ({ transactions }: TransactionsListProps) => {
             <div className={`font-semibold ${
               transaction.amount > 0 ? 'text-green-600' : 'text-red-600'
             }`}>
-              {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
+              {transaction.amount > 0 ? '+' : ''}R{Math.abs(transaction.amount).toFixed(2)}
             </div>
           </div>
         ))}
