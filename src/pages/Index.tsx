@@ -1,13 +1,41 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from "react";
+import LoginPage from "../components/auth/LoginPage";
+import RegisterPage from "../components/auth/RegisterPage";
+import Dashboard from "../components/dashboard/Dashboard";
 
 const Index = () => {
+  const [currentPage, setCurrentPage] = useState<'login' | 'register' | 'dashboard'>('login');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    setCurrentPage('dashboard');
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setCurrentPage('login');
+  };
+
+  if (isAuthenticated && currentPage === 'dashboard') {
+    return <Dashboard onLogout={handleLogout} />;
+  }
+
+  if (currentPage === 'register') {
+    return (
+      <RegisterPage 
+        onBack={() => setCurrentPage('login')}
+        onRegister={handleLogin}
+      />
+    );
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <LoginPage 
+      onLogin={handleLogin}
+      onRegister={() => setCurrentPage('register')}
+    />
   );
 };
 
